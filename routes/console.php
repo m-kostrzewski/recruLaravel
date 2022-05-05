@@ -17,3 +17,27 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('create:user', function() {
+    //options
+    $name = $this->ask('What is your name?');
+    $email = $this->ask('What is your email?');
+    $password = $this->secret('What is the password?');
+    $password2 = $this->secret('Repeat password');
+
+    if(!User::where('email', '=', $email)->first()){
+        if($password === $password2){
+            $user = new User;
+            $user->name = $name;
+            $user->email = $email;
+            $user->password = Hash::make($password);
+            $user->save();
+            $this->info("User Created");
+        }
+        else{
+            $this->info("User Not Created. Passwords not match");
+        }
+    }else{
+        $this->info("User Alredy Exist");
+    }
+});
