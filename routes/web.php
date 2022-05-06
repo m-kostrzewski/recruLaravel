@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +32,21 @@ Route::prefix('post')->middleware('auth')->group(function() {
     Route::get('/{id}/edit', [PostController::class, 'edit'] )->name('editPost');
     Route::get('/create/new', [PostController::class, 'createView'] )->name('createPost');
 
+    Route::get('/{id}/comments', [PostController::class, 'showComments'] )->name('showComments');
+
     Route::post('/', [PostController::class, 'store'])->name('storePost');
     Route::put('/{id}', [PostController::class, 'update'])->name('updatePost');
     Route::delete('/{id}', [PostController::class, 'destroy'] )->name('deletePost');
+});
+
+//Comments
+Route::prefix('comment')->middleware('auth')->group(function() {
+    Route::get('/', [CommentController::class, 'index'] );
+    Route::get('/{id}', [CommentController::class, 'show'] )->name('comment');
+});
+
+//Users
+Route::prefix('users')->middleware('auth')->group(function() {
+    Route::get('/', [UserController::class, 'index'] );
+    Route::get('/{id}', [UserController::class, 'show'] )->name('user');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Pagination\Paginator;
 use Validator;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,13 @@ class PostController extends Controller {
     {
          return view('post.display', [
             'post' => Post::findOrFail($id)
+        ]);
+    }
+
+    public function showComments($id)
+    {
+         return view('post.comments', [
+            'comments' => Comment::where('post_id', '=', $id)->paginate(20)
         ]);
     }
 

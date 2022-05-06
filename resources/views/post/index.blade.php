@@ -19,10 +19,10 @@
                                    {{ $post->id }}
                             </td>
                             <td>
-                                   <a href={{ route('post', ['id' => $post->id]) }} > {{$post->title}} </a>
+                                   <a class='text-decoration-none' href={{ route('post', ['id' => $post->id]) }} > {{$post->title}} </a>
                             </td>
                             <td>
-                                   {{ $post->comments->count() }}
+                                   <a class='text-decoration-none' href={{ route('showComments', ['id' => $post->id]) }} > {{ $post->comments->count() }} </a>
                             </td>
                             <td>
                                     {{ $post->getAuthor->name }} 

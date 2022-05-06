@@ -33,6 +33,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        @auth
+                            @include('menu')
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -44,7 +47,6 @@
                         @endguest
                         <!-- Authentication Links -->
                         @auth
-                            
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -68,9 +70,26 @@
             </div>
         </nav>
         <div class="mt-2"></div>
+        @if (\Session::has('success'))
+            <div class="alert alert-success text-center" role="alert">
+                {{ Session::get('success') }}
+            </div>
+        @endif
+        @if (\Session::has('warning'))
+            <div class="alert alert-warning text-center" role="alert">
+                {{ Session::get('warning') }}
+            </div>
+        @endif
+        @if (\Session::has('error'))
+        <div class="alert alert-danger text-center" role="alert">
+            {{ Session::get('error') }}
+        </div>
+    @endif
         <main class="container">
             @yield('content')
         </main>
-    </div>
+        <script>
+            $('.alert').alert()
+        </script>
 </body>
 </html>
