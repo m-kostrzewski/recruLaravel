@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,11 +18,19 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/login', [LoginController::class, 'loginView']);
+//Auth
+Route::get('/login', [LoginController::class, 'loginView'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
-
-Route::get('/register', [LoginController::class, 'registerView']);
-Route::post('/register', [LoginController::class, 'register']);
-
 Route::post('/logout', [LoginController::class, 'logout'] );
 
+//Posts
+Route::prefix('post')->middleware('auth')->group(function() {
+    Route::get('/', [PostController::class, 'index'] );
+    Route::get('/{id}', [PostController::class, 'show'] )->name('post');
+    Route::get('/{id}/edit', [PostController::class, 'edit'] )->name('editPost');
+    Route::get('/create/new', [PostController::class, 'createView'] )->name('createPost');
+
+    Route::post('/', [PostController::class, 'store'])->name('storePost');
+    Route::put('/{id}', [PostController::class, 'update'])->name('updatePost');
+    Route::delete('/{id}', [PostController::class, 'destroy'] )->name('deletePost');
+});
