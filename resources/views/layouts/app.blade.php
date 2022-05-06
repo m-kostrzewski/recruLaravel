@@ -70,6 +70,9 @@
             </div>
         </nav>
         <div class="mt-2"></div>
+        <div id='msg-alert' class="alert alert-success text-center fixed-top" data-color='success' role="alert" style="display: none;">
+            
+        </div>
         @if (\Session::has('success'))
             <div class="alert alert-success text-center" role="alert">
                 {{ Session::get('success') }}
@@ -88,8 +91,7 @@
         <main class="container">
             @yield('content')
         </main>
-        <script>
-            $('.alert').alert()
-        </script>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

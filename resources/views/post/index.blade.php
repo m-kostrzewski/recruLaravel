@@ -30,14 +30,7 @@
                             <td>
                                    <div class="d-flex flex-row bd-highlight mb-3">
                                           <a role="button" class="btn btn-outline-primary" href="{{route('editPost', ['id' => $post->id ])}}"> Edit </a>
-                                          <form action="{{ route('deletePost', $post->id) }}" method="POST">
-                                                 @method('delete')
-                                                 @csrf
-                                                 <input type='submit'
-                                                        class="btn btn-xs btn-danger" 
-                                                        onclick="return confirm('Are you sure?')" 
-                                                        value='Del' />
-                                          </form>
+                                          <button class="btn btn-xs btn-danger deletePost" data-id="{{ $post->id }}">Del</button>
                                    </div>
                             </td>
                             
